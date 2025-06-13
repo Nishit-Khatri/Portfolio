@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { ExternalLink, Github, Eye } from "lucide-react"
-import Image from "next/image"
+import { motion } from "framer-motion";
+import { ExternalLink, Github, Eye } from "lucide-react";
+import Image from "next/image";
 
 export default function Projects() {
   const projects = [
@@ -35,18 +35,16 @@ export default function Projects() {
       liveUrl: "#",
       githubUrl: "#",
       featured: false,
-    }
-  ]
+    },
+  ];
 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
+      transition: { staggerChildren: 0.2 },
     },
-  }
+  };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 50 },
@@ -55,7 +53,7 @@ export default function Projects() {
       y: 0,
       transition: { duration: 0.8, ease: "easeOut" },
     },
-  }
+  };
 
   const cardVariants = {
     hover: {
@@ -63,7 +61,7 @@ export default function Projects() {
       scale: 1.02,
       transition: { duration: 0.3, ease: "easeOut" },
     },
-  }
+  };
 
   return (
     <section id="projects" className="py-20 bg-gray-50 dark:bg-gray-800/50">
@@ -97,7 +95,7 @@ export default function Projects() {
         >
           {projects
             .filter((project) => project.featured)
-            .map((project, index) => (
+            .map((project) => (
               <motion.div
                 key={project.title}
                 variants={itemVariants}
@@ -114,11 +112,11 @@ export default function Projects() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-                    {/* Hover Actions */}
+                    {/* Desktop Hover Buttons */}
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       whileHover={{ opacity: 1, y: 0 }}
-                      className="absolute bottom-4 left-4 right-4 flex gap-3"
+                      className="absolute bottom-4 left-4 right-4 gap-3 hidden sm:flex"
                     >
                       <motion.a
                         href={project.liveUrl}
@@ -141,6 +139,26 @@ export default function Projects() {
                         Code
                       </motion.a>
                     </motion.div>
+                  </div>
+
+                  {/* Mobile Buttons */}
+                  <div className="sm:hidden flex flex-col gap-2 p-4">
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      className="flex items-center justify-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors"
+                    >
+                      <Eye size={16} />
+                      Live Demo
+                    </a>
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      className="flex items-center justify-center gap-2 bg-gray-800 text-white px-4 py-2 rounded-lg font-medium hover:bg-gray-900 transition-colors"
+                    >
+                      <Github size={16} />
+                      Code
+                    </a>
                   </div>
 
                   <div className="p-6">
@@ -174,7 +192,7 @@ export default function Projects() {
         >
           {projects
             .filter((project) => !project.featured)
-            .map((project, index) => (
+            .map((project) => (
               <motion.div
                 key={project.title}
                 variants={itemVariants}
@@ -225,8 +243,8 @@ export default function Projects() {
                     <div className="flex flex-wrap gap-1">
                       {project.technologies.slice(0, 3).map((tech) => (
                         <span
-                        key={tech}
-                        className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded font-medium"
+                          key={tech}
+                          className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded font-medium"
                         >
                           {tech}
                         </span>
@@ -245,5 +263,5 @@ export default function Projects() {
         </motion.div>
       </div>
     </section>
-  )
+  );
 }
