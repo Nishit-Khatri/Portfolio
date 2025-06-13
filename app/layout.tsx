@@ -9,30 +9,23 @@ export const metadata: Metadata = {
   title: "Nishit Khatri - Full Stack Developer",
   description:
     "Portfolio of Nishit Khatri, a passionate Full Stack Developer specializing in modern web technologies and creating exceptional digital experiences.",
-  keywords: "Full Stack Developer, React, Next.js, Node.js, TypeScript, Web Development, Portfolio",
+  icons:{
+    icon: "/logo.svg",
+  },
+    keywords: "Full Stack Developer, React, Next.js, Node.js, TypeScript, Web Development, Portfolio",
   authors: [{ name: "Nishit Khatri" }],
   creator: "Nishit Khatri",
   openGraph: {
     type: "website",
-    locale: "en_US",
-    url: "https://nishitkhatri.dev",
     title: "Nishit Khatri - Full Stack Developer",
     description:
       "Portfolio of Nishit Khatri, a passionate Full Stack Developer specializing in modern web technologies.",
     siteName: "Nishit Khatri Portfolio",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Nishit Khatri - Full Stack Developer",
-    description:
-      "Portfolio of Nishit Khatri, a passionate Full Stack Developer specializing in modern web technologies.",
-    creator: "@nishitkhatri",
-  },
   robots: {
     index: true,
     follow: true,
-  },
-    generator: 'v0.dev'
+  }
 }
 
 export default function RootLayout({
