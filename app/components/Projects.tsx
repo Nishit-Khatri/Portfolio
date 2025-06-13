@@ -154,7 +154,7 @@ export default function Projects() {
                     <a
                       href={project.githubUrl}
                       target="_blank"
-                      className="flex items-center justify-center gap-2 bg-gray-800 text-white px-4 py-2 rounded-lg font-medium hover:bg-gray-900 transition-colors"
+                      className="flex items-center justify-center gap-2 bg-black text-white px-4 py-2 rounded-lg font-medium hover:bg-gray-900 transition-colors"
                     >
                       <Github size={16} />
                       Code
