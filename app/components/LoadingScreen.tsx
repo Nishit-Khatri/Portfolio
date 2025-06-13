@@ -43,7 +43,7 @@ export default function LoadingScreen({
 
     return () => clearInterval(timer);
   }, [currentText, onLoadingComplete]);
-  const texts = ["Nishit Khatri", "Full Stack Developer"];
+  const texts = ["Nishit Khatri", "Full Stack Web Developer"];
   const [displayedText, setDisplayedText] = useState("");
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);

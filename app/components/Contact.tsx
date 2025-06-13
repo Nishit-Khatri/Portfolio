@@ -51,20 +51,19 @@ export default function Contact() {
     {
       icon: Mail,
       title: "Email",
-      value: "nishit.khatri@example.com",
-      href: "mailto:nishit.khatri@example.com",
+      value: "nishitkhatri.dev@gmail.com",
+      href: "mailto:nishitkhatri.dev@gmail.com",
     },
     {
       icon: Phone,
       title: "Phone",
-      value: "+1 (555) 123-4567",
-      href: "tel:+15551234567",
+      value: "+91 9768821161",
+      href: "tel:+91 9768821161",
     },
     {
       icon: MapPin,
       title: "Location",
-      value: "San Francisco, CA",
-      href: "#",
+      value: "Mumbai, Maharashtra",
     },
   ]
 

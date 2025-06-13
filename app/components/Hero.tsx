@@ -70,7 +70,7 @@ export default function Hero() {
             variants={textVariants}
             className="text-xl sm:text-2xl lg:text-3xl text-gray-600 dark:text-gray-300 font-light"
           >
-            Full Stack Developer
+            Full Stack Web Developer
           </motion.p>
 
           <motion.p
@@ -78,7 +78,7 @@ export default function Hero() {
             variants={textVariants}
             className="text-lg sm:text-xl text-gray-500 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed"
           >
-            I’m a highly motivated Full Stack Developer currently pursuing a
+            I’m a highly motivated Full Stack Web Developer currently pursuing a
             B.Tech in Electronics and Computer Science. I’m passionate about
             transforming ideas into impactful and user-friendly web applications
             using technologies like React, Next.js, and Tailwind CSS. I strongly
@@ -100,7 +100,7 @@ export default function Hero() {
             >
               <Download size={20} />
               <a
-                href="./media/Nishit-Khatri-Resume.pdf"
+                href="./media/Nishit Khatri Resume.pdf"
                 download="Nishit-Khatri-Resume.pdf"
               >
                 Download Resume

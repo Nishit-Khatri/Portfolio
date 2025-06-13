@@ -110,10 +110,10 @@ export default function About() {
 
                   {/* Photo */}
                   <Image
-                    src="/placeholder.svg?height=400&width=320"
+                    src="/media/Nishit image.jpg?height=400&width=320"
                     alt="Nishit Khatri - Full Stack Developer"
                     fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-500"
+                    className="object-contain group-hover:scale-110 transition-transform duration-500"
                     priority
                   />
 
@@ -176,7 +176,7 @@ export default function About() {
               variants={itemVariants}
               className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed"
             >
-              I’m a passionate and self-taught Full Stack Developer currently
+              I’m a passionate and self-taught Full Stack Web Developer currently
               pursuing a B.Tech in Electronics and Computer Science. I enjoy
               building web applications that are not only functional but also
               solve real-world problems.

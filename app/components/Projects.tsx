@@ -10,20 +10,20 @@ export default function Projects() {
       title: "Real Time Chat App",
       description:
         "A sleek and responsive web-based chat application that allows users to exchange messages instantly.",
-      image: "/placeholder.svg?height=300&width=400",
+      image: "/media/Real Time Chat App.png?height=300&width=400",
       technologies: ["React", "Node.js", "Socket.io", "Express.js", "Tailwind CSS"],
-      liveUrl: "#",
-      githubUrl: "#",
+      liveUrl: "https://realtimechatapp-delta.vercel.app/",
+      githubUrl: "https://github.com/Nishit-Khatri/Real-Time-Chat-App.git",
       featured: true,
     },
     {
       title: "Recipe Generator App",
       description:
         "An AI-powered web app that helps users discover delicious recipes based on the ingredients they have.",
-      image: "/placeholder.svg?height=300&width=400",
+      image: "/media/Recipe Generator App.png?height=300&width=400",
       technologies: ["React", "Tailwind CSS", "Gemini API", "JavaScript"],
-      liveUrl: "#",
-      githubUrl: "#",
+      liveUrl: "https://recipe-creator-app.vercel.app/",
+      githubUrl: "https://github.com/Nishit-Khatri/Recipe-Creator-App.git",
       featured: true,
     },
     {
@@ -34,35 +34,8 @@ export default function Projects() {
       technologies: ["Next.js", "Tailwind CSS", "Weather API", "Shadcn"],
       liveUrl: "#",
       githubUrl: "#",
-      featured: true,
-    },
-    {
-      title: "Portfolio Website",
-      description: "A modern portfolio website with smooth animations, dark mode support, and responsive design.",
-      image: "/placeholder.svg?height=300&width=400",
-      technologies: ["Next.js", "Framer Motion", "Tailwind CSS", "TypeScript"],
-      liveUrl: "#",
-      githubUrl: "#",
       featured: false,
-    },
-    {
-      title: "Blog Platform",
-      description: "A full-featured blog platform with markdown support, comment system, and SEO optimization.",
-      image: "/placeholder.svg?height=300&width=400",
-      technologies: ["Next.js", "MDX", "Prisma", "NextAuth.js"],
-      liveUrl: "#",
-      githubUrl: "#",
-      featured: false,
-    },
-    {
-      title: "Chat Application",
-      description: "Real-time chat application with private messaging, group chats, and file sharing capabilities.",
-      image: "/placeholder.svg?height=300&width=400",
-      technologies: ["React", "Socket.io", "Express", "MongoDB"],
-      liveUrl: "#",
-      githubUrl: "#",
-      featured: false,
-    },
+    }
   ]
 
   const containerVariants = {
@@ -149,6 +122,7 @@ export default function Projects() {
                     >
                       <motion.a
                         href={project.liveUrl}
+                        target="_blank"
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
                         className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors"
@@ -158,6 +132,7 @@ export default function Projects() {
                       </motion.a>
                       <motion.a
                         href={project.githubUrl}
+                        target="_blank"
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
                         className="flex items-center gap-2 bg-gray-800 text-white px-4 py-2 rounded-lg font-medium hover:bg-gray-900 transition-colors"
@@ -250,8 +225,8 @@ export default function Projects() {
                     <div className="flex flex-wrap gap-1">
                       {project.technologies.slice(0, 3).map((tech) => (
                         <span
-                          key={tech}
-                          className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded font-medium"
+                        key={tech}
+                        className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded font-medium"
                         >
                           {tech}
                         </span>
@@ -261,6 +236,7 @@ export default function Projects() {
                           +{project.technologies.length - 3} more
                         </span>
                       )}
+                      Inprogress...
                     </div>
                   </div>
                 </motion.div>

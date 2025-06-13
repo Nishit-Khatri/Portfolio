@@ -1,42 +1,36 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { Github, Linkedin, Twitter, Mail, Heart } from "lucide-react"
+import { motion } from "framer-motion";
+import { Github, Linkedin, Twitter, Mail, Heart } from "lucide-react";
 
 export default function Footer() {
   const socialLinks = [
     {
       name: "GitHub",
       icon: Github,
-      href: "https://github.com/nishitkhatri",
+      href: "https://github.com/Nishit-Khatri",
       color: "hover:text-gray-900 dark:hover:text-white",
     },
     {
       name: "LinkedIn",
       icon: Linkedin,
-      href: "https://linkedin.com/in/nishitkhatri",
+      href: "https://www.linkedin.com/in/nishit-tushar-khatri-43b26a25b/",
       color: "hover:text-blue-600",
-    },
-    {
-      name: "Twitter",
-      icon: Twitter,
-      href: "https://twitter.com/nishitkhatri",
-      color: "hover:text-blue-400",
     },
     {
       name: "Email",
       icon: Mail,
-      href: "mailto:nishit.khatri@example.com",
+      href: "mailto:nishitkhatri.dev@gmail.com",
       color: "hover:text-red-500",
     },
-  ]
+  ];
 
   const quickLinks = [
     { name: "About", href: "#about" },
     { name: "Skills", href: "#skills" },
     { name: "Projects", href: "#projects" },
     { name: "Contact", href: "#contact" },
-  ]
+  ];
 
   return (
     <footer className="bg-gray-900 dark:bg-black text-white py-12">
@@ -54,8 +48,8 @@ export default function Footer() {
               Nishit Khatri
             </h3>
             <p className="text-gray-400 leading-relaxed">
-              Full Stack Developer passionate about creating exceptional digital experiences and bringing innovative
-              ideas to life through code.
+              I’m a Full Stack Developer who enjoys building user-friendly
+              websites and turning ideas into working web applications.
             </p>
           </motion.div>
 
@@ -108,7 +102,9 @@ export default function Footer() {
                 </motion.a>
               ))}
             </div>
-            <p className="text-gray-400 text-sm">Let's connect and create something amazing together!</p>
+            <p className="text-gray-400 text-sm">
+              Let's connect and create something amazing together!
+            </p>
           </motion.div>
         </div>
 
@@ -119,20 +115,8 @@ export default function Footer() {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.6 }}
           className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center"
-        >
-          <p className="text-gray-400 text-sm mb-4 md:mb-0">
-            © {new Date().getFullYear()} Nishit Khatri. All rights reserved.
-          </p>
-
-          <motion.div className="flex items-center gap-2 text-gray-400 text-sm" whileHover={{ scale: 1.05 }}>
-            <span>Made with</span>
-            <motion.div animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 1, repeat: Number.POSITIVE_INFINITY }}>
-              <Heart size={16} className="text-red-500 fill-current" />
-            </motion.div>
-            <span>and lots of coffee</span>
-          </motion.div>
-        </motion.div>
+        ></motion.div>
       </div>
     </footer>
-  )
+  );
 }
