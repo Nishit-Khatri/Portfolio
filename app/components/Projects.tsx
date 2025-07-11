@@ -27,11 +27,21 @@ export default function Projects() {
       featured: true,
     },
     {
-      title: "Weather App",
+      title: "Weather Forecast App",
       description:
         "A clean and user-friendly web application that provides real-time weather updates for any location",
+      image: "/media/Weather Forecast App.png?height=300&width=400",
+      technologies: ["Next.js", "Tailwind CSS", "Weather API", "radix-ui","framer-motion"],
+      liveUrl: "https://myweatherforecastapp.vercel.app/",
+      githubUrl: "https://github.com/Nishit-Khatri/Weather-Forecast-App",
+      featured: true,
+    },
+    {
+      title: "Password Manager",
+      description:
+        "Safely store and manage your passwords in one secure place.",
       image: "/placeholder.svg?height=300&width=400",
-      technologies: ["Next.js", "Tailwind CSS", "Weather API", "Shadcn"],
+      technologies: ["Next.js", "Tailwind CSS", "MongoDB", "radix-ui"],
       liveUrl: "#",
       githubUrl: "#",
       featured: false,

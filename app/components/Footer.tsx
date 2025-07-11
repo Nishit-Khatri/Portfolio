@@ -48,7 +48,7 @@ export default function Footer() {
               Nishit Khatri
             </h3>
             <p className="text-gray-400 leading-relaxed">
-              I’m a Full Stack Developer who enjoys building user-friendly
+              I’m a Full Stack Web Developer who enjoys building user-friendly
               websites and turning ideas into working web applications.
             </p>
           </motion.div>

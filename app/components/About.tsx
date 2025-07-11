@@ -130,7 +130,7 @@ export default function About() {
                           Nishit Khatri
                         </h3>
                         <p className="text-sm text-gray-600 dark:text-gray-300">
-                          Full Stack Developer
+                          Full Stack Web Developer
                         </p>
                       </div>
                       <motion.div
