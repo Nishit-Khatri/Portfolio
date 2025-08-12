@@ -110,7 +110,7 @@ export default function About() {
 
                   {/* Photo */}
                   <Image
-                    src="/media/Nishit image.jpg?height=400&width=320"
+                    src="/media/Nishit image.png?height=400&width=320"
                     alt="Nishit Khatri - Full Stack Developer"
                     fill
                     className="object-contain group-hover:scale-110 transition-transform duration-500"
@@ -176,10 +176,10 @@ export default function About() {
               variants={itemVariants}
               className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed"
             >
-              I’m a passionate and self-taught Full Stack Web Developer currently
-              pursuing a B.Tech in Electronics and Computer Science. I enjoy
-              building web applications that are not only functional but also
-              solve real-world problems.
+              I’m a passionate and self-taught Full Stack Web Developer
+              currently pursuing a B.Tech in Electronics and Computer Science. I
+              enjoy building web applications that are not only functional but
+              also solve real-world problems.
             </motion.p>
 
             <motion.p
@@ -187,21 +187,22 @@ export default function About() {
               className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed"
             >
               Over time, I’ve worked on several hands-on projects including a
-              Live Chat App that enables real-time messaging, a Recipe Generator
-              App powered by AI that helps users discover new meals based on
-              ingredients, and a Weather App that allows users to search and
-              save locations for quick forecasts.
+              Live Chat App enabling real-time messaging, a Recipe Generator App
+              powered by AI for discovering meals based on ingredients, a
+              Weather App for searching and saving locations for quick
+              forecasts, and SecureVault, a secure password manager for storing
+              and organizing credentials.
             </motion.p>
 
             <motion.p
               variants={itemVariants}
               className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed"
             >
-              I love working with modern tools like React, Next.js, Tailwind
-              CSS and Shadcn. These technologies help me create fast, responsive, and
-              interactive user experiences. I’m a quick learner who enjoys
-              taking new challenges. I’m always excited to explore, build,
-              and grow in the world of web development.
+              I love working with modern tools like React, Next.js, Tailwind CSS
+              and radix ui. These technologies help me create fast, responsive,
+              and interactive user experiences. I’m a quick learner who enjoys
+              taking new challenges. I’m always excited to explore, build, and
+              grow in the world of web development.
             </motion.p>
 
             {/* CTA Buttons */}
@@ -209,7 +210,6 @@ export default function About() {
               variants={itemVariants}
               className="flex flex-col sm:flex-row gap-4 pt-6"
             >
-
               <motion.a
                 href="#contact"
                 whileHover={{ scale: 1.05 }}

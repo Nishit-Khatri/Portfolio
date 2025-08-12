@@ -11,7 +11,13 @@ export default function Projects() {
       description:
         "A sleek and responsive web-based chat application that allows users to exchange messages instantly.",
       image: "/media/Real Time Chat App.png?height=300&width=400",
-      technologies: ["React", "Node.js", "Socket.io", "Express.js", "Tailwind CSS"],
+      technologies: [
+        "React",
+        "Node.js",
+        "Socket.io",
+        "Express.js",
+        "Tailwind CSS",
+      ],
       liveUrl: "https://realtimechatapp-delta.vercel.app/",
       githubUrl: "https://github.com/Nishit-Khatri/Real-Time-Chat-App.git",
       featured: true,
@@ -27,24 +33,30 @@ export default function Projects() {
       featured: true,
     },
     {
+      title: "SecureVault",
+      description:
+        "SecureVault securely stores and organizes all your passwords in one encrypted vault, accessible anytime, anywhere.",
+      image: "/media/SecureVault.png?height=300&width=400",
+      technologies: ["Next.js", "Tailwind CSS", "radix-ui", "MongoDB"],
+      liveUrl: "https://securevaultapp.vercel.app/",
+      githubUrl: "https://github.com/Nishit-Khatri/SecureVault",
+      featured: true,
+    },
+    {
       title: "Weather Forecast App",
       description:
         "A clean and user-friendly web application that provides real-time weather updates for any location",
       image: "/media/Weather Forecast App.png?height=300&width=400",
-      technologies: ["Next.js", "Tailwind CSS", "Weather API", "radix-ui","framer-motion"],
+      technologies: [
+        "Next.js",
+        "Tailwind CSS",
+        "Weather API",
+        "radix-ui",
+        "framer-motion",
+      ],
       liveUrl: "https://myweatherforecastapp.vercel.app/",
       githubUrl: "https://github.com/Nishit-Khatri/Weather-Forecast-App",
       featured: true,
-    },
-    {
-      title: "Password Manager",
-      description:
-        "Safely store and manage your passwords in one secure place.",
-      image: "/placeholder.svg?height=300&width=400",
-      technologies: ["Next.js", "Tailwind CSS", "MongoDB", "radix-ui"],
-      liveUrl: "#",
-      githubUrl: "#",
-      featured: false,
     },
   ];
 
@@ -83,15 +95,23 @@ export default function Projects() {
           variants={containerVariants}
           className="text-center mb-16"
         >
-          <motion.h2 variants={itemVariants} className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
-            Featured <span className="text-blue-600 dark:text-blue-400">Projects</span>
+          <motion.h2
+            variants={itemVariants}
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6"
+          >
+            Featured{" "}
+            <span className="text-blue-600 dark:text-blue-400">Projects</span>
           </motion.h2>
           <motion.div
             variants={itemVariants}
             className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mb-8"
           />
-          <motion.p variants={itemVariants} className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            Here are some of my recent projects that showcase my skills and passion for development
+          <motion.p
+            variants={itemVariants}
+            className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto"
+          >
+            Here are some of my recent projects that showcase my skills and
+            passion for development
           </motion.p>
         </motion.div>
 
@@ -175,7 +195,9 @@ export default function Projects() {
                     <h3 className="text-2xl font-bold mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                       {project.title}
                     </h3>
-                    <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">{project.description}</p>
+                    <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+                      {project.description}
+                    </p>
                     <div className="flex flex-wrap gap-2">
                       {project.technologies.map((tech) => (
                         <span
@@ -264,7 +286,6 @@ export default function Projects() {
                           +{project.technologies.length - 3} more
                         </span>
                       )}
-                      Inprogress...
                     </div>
                   </div>
                 </motion.div>
