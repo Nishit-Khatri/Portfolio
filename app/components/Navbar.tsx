@@ -96,7 +96,7 @@ export default function Navbar() {
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden flex items-center space-x-4">
+          <div className="md:hidden flex items-center space-x-4 pr-6 pl-2">
             <motion.button
               onClick={toggleTheme}
               whileHover={{ scale: 1.1 }}
