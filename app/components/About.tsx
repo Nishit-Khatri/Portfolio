@@ -186,23 +186,22 @@ export default function About() {
               variants={itemVariants}
               className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed"
             >
-              Over time, I’ve worked on several hands-on projects including a
-              Live Chat App enabling real-time messaging, a Recipe Generator App
-              powered by AI for discovering meals based on ingredients, a
-              Weather App for searching and saving locations for quick
-              forecasts, and SecureVault, a secure password manager for storing
-              and organizing credentials.
+              Over time, I’ve worked on several hands-on projects, including a
+              Live Chat App for real-time messaging, an AI-powered Recipe
+              Generator that suggests meals based on ingredients, a Weather App
+              for searching and saving locations, and SecureVault, a secure
+              password manager for storing and organizing credentials.
             </motion.p>
 
             <motion.p
               variants={itemVariants}
               className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed"
             >
-              I love working with modern tools like React, Next.js, Tailwind CSS
-              and radix ui. These technologies help me create fast, responsive,
-              and interactive user experiences. I’m a quick learner who enjoys
-              taking new challenges. I’m always excited to explore, build, and
-              grow in the world of web development.
+              I love working with modern technologies such as React, Next.js,
+              Tailwind CSS, and Radix UI to create fast, responsive, and
+              interactive user experiences. I also have hands-on experience in
+              backend development, API integration, and DevOps practices,
+              including Docker, Kubernetes, CI/CD, and GitHub Actions.
             </motion.p>
 
             {/* CTA Buttons */}

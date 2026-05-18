@@ -7,6 +7,16 @@ import Image from "next/image";
 export default function Projects() {
   const projects = [
     {
+      title: "SecureVault",
+      description:
+        "SecureVault securely stores and organizes all your passwords in one encrypted vault, accessible anytime, anywhere.",
+      image: "/media/SecureVault.png?height=300&width=400",
+      technologies: ["Next.js", "Tailwind CSS", "radix-ui", "MongoDB"],
+      liveUrl: "https://securevaultapp.vercel.app/",
+      githubUrl: "https://github.com/Nishit-Khatri/SecureVault",
+      featured: true,
+    },
+    {
       title: "Real Time Chat App",
       description:
         "A sleek and responsive web-based chat application that allows users to exchange messages instantly.",
@@ -30,16 +40,6 @@ export default function Projects() {
       technologies: ["React", "Tailwind CSS", "Gemini API", "JavaScript"],
       liveUrl: "https://recipe-creator-app.vercel.app/",
       githubUrl: "https://github.com/Nishit-Khatri/Recipe-Creator-App.git",
-      featured: true,
-    },
-    {
-      title: "SecureVault",
-      description:
-        "SecureVault securely stores and organizes all your passwords in one encrypted vault, accessible anytime, anywhere.",
-      image: "/media/SecureVault.png?height=300&width=400",
-      technologies: ["Next.js", "Tailwind CSS", "radix-ui", "MongoDB"],
-      liveUrl: "https://securevaultapp.vercel.app/",
-      githubUrl: "https://github.com/Nishit-Khatri/SecureVault",
       featured: true,
     },
     {
