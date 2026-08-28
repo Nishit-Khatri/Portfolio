@@ -100,13 +100,13 @@ export async function POST(request: Request) {
     const sanitizedMessage = escapeHtml(message.trim())
 
     // 4. Retrieve & Verify SMTP Environment Variables
-    const smtpHost = process.env.SMTP_HOST || "smtp.gmail.com"
+    const smtpHost = process.env.SMTP_HOST
     const smtpPort = parseInt(process.env.SMTP_PORT || "587", 10)
     const smtpSecure = process.env.SMTP_SECURE === "true" || smtpPort === 465
     const smtpUser = process.env.SMTP_USER
     const smtpPass = process.env.SMTP_PASS
-    const recipientEmail = process.env.CONTACT_RECIPIENT_EMAIL || smtpUser || "nishitkhatri.dev@gmail.com"
-    const senderName = process.env.SENDER_NAME || "Nishit Khatri Portfolio"
+    const recipientEmail = process.env.CONTACT_RECIPIENT_EMAIL
+    const senderName = process.env.SENDER_NAME
 
     if (!smtpUser || !smtpPass) {
       console.warn("⚠️ SMTP credentials missing in environment variables.")
@@ -142,7 +142,7 @@ export async function POST(request: Request) {
       timeZone: "Asia/Kolkata",
     })
 
-    // 6. Template 1: Admin Notification Email (Sent to Nishit)
+    // 6. Template for Admin
     const adminMailOptions = {
       from: `"${senderName}" <${smtpUser}>`,
       to: recipientEmail,
@@ -213,7 +213,7 @@ export async function POST(request: Request) {
       `,
     }
 
-    // 7. Template 2: Automated Thank-You / Confirmation Email (Sent to Visitor)
+    // 7. Template for Visitor
     const visitorMailOptions = {
       from: `"${senderName}" <${smtpUser}>`,
       to: sanitizedEmail,
@@ -275,7 +275,7 @@ export async function POST(request: Request) {
     }
 
     // 8. Dispatch Emails Sequentially via Pooled Transporter
-    // First, send the admin notification email to Nishit
+    // First, send the admin notification email
     console.log(`Sending admin notification email to ${recipientEmail}...`)
     await transporter.sendMail(adminMailOptions)
 
