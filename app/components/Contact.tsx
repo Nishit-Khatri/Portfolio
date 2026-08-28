@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence, type Variants } from "framer-motion"
 import { useState } from "react"
 import { Mail, Phone, MapPin, Send, CheckCircle, ArrowRight, AlertCircle, Loader2 } from "lucide-react"
 
@@ -152,7 +152,8 @@ export default function Contact() {
     },
   ]
 
-  const containerVariants = {
+  // Framer Motion Animation Variants with explicit TypeScript types
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -162,7 +163,7 @@ export default function Contact() {
     },
   }
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 50 },
     visible: {
       opacity: 1,
@@ -171,7 +172,7 @@ export default function Contact() {
     },
   }
 
-  const formVariants = {
+  const formVariants: Variants = {
     hidden: { opacity: 0, y: 50 },
     visible: {
       opacity: 1,
@@ -180,8 +181,7 @@ export default function Contact() {
     },
   }
 
-  // Success animation variants
-  const successContainerVariants = {
+  const successContainerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -200,7 +200,7 @@ export default function Contact() {
     },
   }
 
-  const successItemVariants = {
+  const successItemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
@@ -214,7 +214,7 @@ export default function Contact() {
     },
   }
 
-  const checkmarkPathVariants = {
+  const checkmarkPathVariants: Variants = {
     hidden: { pathLength: 0, opacity: 0 },
     visible: {
       pathLength: 1,
@@ -223,7 +223,7 @@ export default function Contact() {
     },
   }
 
-  const messagePathVariants = {
+  const messagePathVariants: Variants = {
     hidden: { y: 0, opacity: 0 },
     visible: {
       y: -60,
@@ -232,7 +232,7 @@ export default function Contact() {
     },
   }
 
-  const particleVariants = {
+  const particleVariants: Variants = {
     hidden: { opacity: 0, scale: 0 },
     visible: (i: number) => ({
       opacity: [0, 1, 0],
@@ -383,11 +383,12 @@ export default function Contact() {
               </p>
             </motion.div>
 
-            <motion.div variants={itemVariants} className="space-y-6">
+            <motion.div variants={containerVariants} className="space-y-6">
               {contactInfo.map((info) => (
                 <motion.a
                   key={info.title}
                   href={info.href}
+                  variants={itemVariants}
                   whileHover={{ scale: 1.05, x: 10 }}
                   whileTap={{ scale: 0.95 }}
                   className="flex items-center gap-4 p-4 bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-shadow group"
