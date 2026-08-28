@@ -80,13 +80,16 @@ export default function Hero() {
             variants={textVariants}
             className="text-sm sm:text-base lg:text-lg text-gray-500 dark:text-gray-400 max-w-md sm:max-w-2xl mx-auto leading-relaxed"
           >
-            I’m an aspiring Full Stack Web Developer currently pursuing a B.Tech
-            in Electronics and Computer Science. I’m passionate about building
-            user-friendly web applications using React, Next.js, and Tailwind
-            CSS. I also have hands-on experience in backend development, API
-            integration, and DevOps practices, including Docker, Kubernetes,
-            CI/CD, and GitHub Actions. I am a quick learner who enjoys solving
-            real-world problems and continuously enhancing my technical skills.
+            I’m an aspiring Full Stack Web Developer and have completed my
+            B.Tech in Electronics and Computer Science from Shah and Anchor
+            Kutchhi Engineering College. I’m passionate about building modern,
+            responsive, and user-friendly web applications using technologies
+            such as React, Next.js, and Tailwind CSS. I also have hands-on
+            experience in backend development, API integration, and working with
+            databases to develop complete end-to-end web applications. I am a
+            quick learner who enjoys solving real-world problems, writing clean
+            and maintainable code, and continuously enhancing my skills in full
+            stack web development.
           </motion.p>
 
           <motion.div

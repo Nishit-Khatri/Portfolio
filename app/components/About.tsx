@@ -176,9 +176,10 @@ export default function About() {
               variants={itemVariants}
               className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed"
             >
-              I’m a passionate and self-taught Full Stack Web Developer
-              currently pursuing a B.Tech in Electronics and Computer Science. I
-              enjoy building web applications that are not only functional but
+              I’m a passionate and self-taught Full Stack Web Developer with a
+              B.Tech in Electronics and Computer Science from Shah and Anchor
+              Kutchhi Engineering College. I enjoy building modern web
+              applications that are not only functional and user-friendly but
               also solve real-world problems.
             </motion.p>
 
@@ -198,10 +199,13 @@ export default function About() {
               className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed"
             >
               I love working with modern technologies such as React, Next.js,
-              Tailwind CSS, and Radix UI to create fast, responsive, and
-              interactive user experiences. I also have hands-on experience in
-              backend development, API integration, and DevOps practices,
-              including Docker, Kubernetes, CI/CD, and GitHub Actions.
+              Tailwind CSS, and other frontend tools to create fast, responsive,
+              and interactive user experiences. I also have hands-on experience
+              in backend development, API integration, and working with
+              databases to build complete end-to-end web applications. I’m
+              continuously learning and improving my skills while focusing on
+              writing clean, maintainable code and developing solutions to
+              real-world problems.
             </motion.p>
 
             {/* CTA Buttons */}

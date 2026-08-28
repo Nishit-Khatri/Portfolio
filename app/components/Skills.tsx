@@ -61,10 +61,7 @@ export default function Skills() {
   { name: "MongoDB", icon: Database },
   { name: "MySQL", icon: Database },
 
-  { name: "Docker", icon: Container },
-  { name: "Kubernetes", icon: Boxes },
   { name: "GitHub Actions", icon: Workflow },
-  { name: "CI/CD", icon: RefreshCcw },
 
   { name: "Git", icon: GitBranch },
   { name: "GitHub", icon: Github },
