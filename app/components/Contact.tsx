@@ -4,7 +4,14 @@ import type React from "react"
 
 import { motion, AnimatePresence } from "framer-motion"
 import { useState } from "react"
-import { Mail, Phone, MapPin, Send, CheckCircle, ArrowRight } from "lucide-react"
+import { Mail, Phone, MapPin, Send, CheckCircle, ArrowRight, AlertCircle, Loader2 } from "lucide-react"
+
+interface FormErrors {
+  name?: string
+  email?: string
+  subject?: string
+  message?: string
+}
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -12,39 +19,117 @@ export default function Contact() {
     email: "",
     subject: "",
     message: "",
+    website: "", // Honeypot field (hidden from legitimate human visitors)
   })
+
+  const [fieldErrors, setFieldErrors] = useState<FormErrors>({})
+  const [serverError, setServerError] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [showSuccessAnimation, setShowSuccessAnimation] = useState(false)
 
+  // Validate fields on client side
+  const validateForm = (): boolean => {
+    const errors: FormErrors = {}
+
+    if (!formData.name.trim()) {
+      errors.name = "Full Name is required."
+    } else if (formData.name.trim().length < 2) {
+      errors.name = "Name must be at least 2 characters long."
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!formData.email.trim()) {
+      errors.email = "Email address is required."
+    } else if (!emailRegex.test(formData.email.trim())) {
+      errors.email = "Please enter a valid email address."
+    }
+
+    if (!formData.subject.trim()) {
+      errors.subject = "Subject is required."
+    } else if (formData.subject.trim().length < 2) {
+      errors.subject = "Subject must be at least 2 characters long."
+    }
+
+    if (!formData.message.trim()) {
+      errors.message = "Message is required."
+    } else if (formData.message.trim().length < 10) {
+      errors.message = "Message must be at least 10 characters long."
+    }
+
+    setFieldErrors(errors)
+    return Object.keys(errors).length === 0
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setServerError(null)
+
+    if (!validateForm()) {
+      return
+    }
+
     setIsSubmitting(true)
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500))
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
 
-    setIsSubmitting(false)
-    setIsSubmitted(true)
-    setShowSuccessAnimation(true)
+      const data = await response.json()
 
-    // Reset form after animation completes
-    setTimeout(() => {
-      setIsSubmitted(false)
-      setFormData({ name: "", email: "", subject: "", message: "" })
+      if (!response.ok || !data.success) {
+        if (data.validationErrors) {
+          setFieldErrors(data.validationErrors)
+        }
+        setServerError(
+          data.error || "Failed to send message. Please try again later or email directly."
+        )
+        setIsSubmitting(false)
+        return
+      }
 
-      // Keep success animation visible for a bit longer
+      // Success
+      setIsSubmitting(false)
+      setIsSubmitted(true)
+      setShowSuccessAnimation(true)
+      setFieldErrors({})
+      setFormData({ name: "", email: "", subject: "", message: "", website: "" })
+
+      // Auto-hide submitted status after animation finishes
       setTimeout(() => {
-        setShowSuccessAnimation(false)
-      }, 2000)
-    }, 3000)
+        setIsSubmitted(false)
+      }, 5000)
+    } catch (err: any) {
+      console.error("Error submitting contact form:", err)
+      setServerError("Network error. Please check your internet connection and try again.")
+      setIsSubmitting(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
     setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [name]: value,
     }))
+
+    // Clear field-specific error as user types
+    if (fieldErrors[name as keyof FormErrors]) {
+      setFieldErrors((prev) => ({
+        ...prev,
+        [name]: undefined,
+      }))
+    }
+
+    // Clear general server error
+    if (serverError) {
+      setServerError(null)
+    }
   }
 
   const contactInfo = [
@@ -244,7 +329,7 @@ export default function Contact() {
               </motion.h3>
 
               <motion.p variants={successItemVariants} className="text-center text-gray-600 dark:text-gray-300 mb-6">
-                Thank you for reaching out! I'll get back to you as soon as possible.
+                Thank you for reaching out! A confirmation email has been sent to your inbox, and I'll get back to you as soon as possible.
               </motion.p>
 
               <motion.button
@@ -277,8 +362,7 @@ export default function Contact() {
             className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mb-8"
           />
           <motion.p variants={itemVariants} className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            I'm always open to discussing new opportunities and interesting projects. Let's create something amazing
-            together!
+            I'm always open to discussing new opportunities, collaborations, or answering any questions. Send me a message and I'll respond as soon as possible!
           </motion.p>
         </motion.div>
 
@@ -300,7 +384,7 @@ export default function Contact() {
             </motion.div>
 
             <motion.div variants={itemVariants} className="space-y-6">
-              {contactInfo.map((info, index) => (
+              {contactInfo.map((info) => (
                 <motion.a
                   key={info.title}
                   href={info.href}
@@ -334,11 +418,39 @@ export default function Contact() {
             variants={formVariants}
             className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg"
           >
-            <form onSubmit={handleSubmit} className="space-y-6">
+            {serverError && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mb-6 p-4 rounded-lg bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 flex items-start gap-3 text-red-700 dark:text-red-300 text-sm"
+              >
+                <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
+                <div>
+                  <div className="font-semibold">Unable to Send Message</div>
+                  <p>{serverError}</p>
+                </div>
+              </motion.div>
+            )}
+
+            <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+              {/* Anti-spam Honeypot Field (hidden from real users) */}
+              <div style={{ display: "none" }} aria-hidden="true">
+                <label htmlFor="website">Website</label>
+                <input
+                  type="text"
+                  id="website"
+                  name="website"
+                  value={formData.website}
+                  onChange={handleChange}
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
+
               <div className="grid md:grid-cols-2 gap-6">
                 <motion.div whileFocus={{ scale: 1.02 }} className="space-y-2">
                   <label htmlFor="name" className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                    Name
+                    Name <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="text"
@@ -346,15 +458,26 @@ export default function Contact() {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-colors"
-                    placeholder="Your Name"
+                    aria-invalid={!!fieldErrors.name}
+                    aria-describedby={fieldErrors.name ? "name-error" : undefined}
+                    disabled={isSubmitting}
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-colors ${
+                      fieldErrors.name
+                        ? "border-red-500 dark:border-red-500"
+                        : "border-gray-300 dark:border-gray-600"
+                    }`}
+                    placeholder="Your Full Name"
                   />
+                  {fieldErrors.name && (
+                    <p id="name-error" className="text-xs text-red-500 dark:text-red-400 mt-1">
+                      {fieldErrors.name}
+                    </p>
+                  )}
                 </motion.div>
 
                 <motion.div whileFocus={{ scale: 1.02 }} className="space-y-2">
                   <label htmlFor="email" className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                    Email
+                    Email <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="email"
@@ -362,16 +485,27 @@ export default function Contact() {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-colors"
+                    aria-invalid={!!fieldErrors.email}
+                    aria-describedby={fieldErrors.email ? "email-error" : undefined}
+                    disabled={isSubmitting}
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-colors ${
+                      fieldErrors.email
+                        ? "border-red-500 dark:border-red-500"
+                        : "border-gray-300 dark:border-gray-600"
+                    }`}
                     placeholder="your.email@example.com"
                   />
+                  {fieldErrors.email && (
+                    <p id="email-error" className="text-xs text-red-500 dark:text-red-400 mt-1">
+                      {fieldErrors.email}
+                    </p>
+                  )}
                 </motion.div>
               </div>
 
               <motion.div whileFocus={{ scale: 1.02 }} className="space-y-2">
                 <label htmlFor="subject" className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                  Subject
+                  Subject <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -379,44 +513,62 @@ export default function Contact() {
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-colors"
+                  aria-invalid={!!fieldErrors.subject}
+                  aria-describedby={fieldErrors.subject ? "subject-error" : undefined}
+                  disabled={isSubmitting}
+                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-colors ${
+                    fieldErrors.subject
+                      ? "border-red-500 dark:border-red-500"
+                      : "border-gray-300 dark:border-gray-600"
+                  }`}
                   placeholder="What's this about?"
                 />
+                {fieldErrors.subject && (
+                  <p id="subject-error" className="text-xs text-red-500 dark:text-red-400 mt-1">
+                    {fieldErrors.subject}
+                  </p>
+                )}
               </motion.div>
 
               <motion.div whileFocus={{ scale: 1.02 }} className="space-y-2">
                 <label htmlFor="message" className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                  Message
+                  Message <span className="text-red-500">*</span>
                 </label>
                 <textarea
                   id="message"
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  required
+                  aria-invalid={!!fieldErrors.message}
+                  aria-describedby={fieldErrors.message ? "message-error" : undefined}
+                  disabled={isSubmitting}
                   rows={5}
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-colors resize-none"
+                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-colors resize-none ${
+                    fieldErrors.message
+                      ? "border-red-500 dark:border-red-500"
+                      : "border-gray-300 dark:border-gray-600"
+                  }`}
                   placeholder="Tell me about your project or just say hello!"
                 />
+                {fieldErrors.message && (
+                  <p id="message-error" className="text-xs text-red-500 dark:text-red-400 mt-1">
+                    {fieldErrors.message}
+                  </p>
+                )}
               </motion.div>
 
               <motion.button
                 type="submit"
-                disabled={isSubmitting || isSubmitted}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                disabled={isSubmitting}
+                whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+                whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
                 className={`w-full py-4 px-6 rounded-lg font-semibold text-white transition-all duration-300 ${
                   isSubmitted
                     ? "bg-green-500 hover:bg-green-600"
                     : "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
                 } ${isSubmitting ? "opacity-75 cursor-not-allowed" : ""} shadow-lg hover:shadow-xl`}
               >
-                <motion.div
-                  className="flex items-center justify-center gap-2"
-                  animate={isSubmitting ? { rotate: 360 } : { rotate: 0 }}
-                  transition={{ duration: 1, repeat: isSubmitting ? Number.POSITIVE_INFINITY : 0 }}
-                >
+                <div className="flex items-center justify-center gap-2">
                   {isSubmitted ? (
                     <>
                       <CheckCircle size={20} />
@@ -424,8 +576,8 @@ export default function Contact() {
                     </>
                   ) : isSubmitting ? (
                     <>
-                      <Send size={20} />
-                      Sending...
+                      <Loader2 size={20} className="animate-spin" />
+                      Sending Message...
                     </>
                   ) : (
                     <>
@@ -433,7 +585,7 @@ export default function Contact() {
                       Send Message
                     </>
                   )}
-                </motion.div>
+                </div>
               </motion.button>
             </form>
           </motion.div>
