@@ -274,7 +274,7 @@ export async function POST(request: Request) {
       `,
     }
 
-    // 8. Dispatch Emails Sequentially via Pooled Transporter
+    // 8. Dispatch Emails Sequentially via Pooled Transporterx
     // First, send the admin notification email
     console.log(`Sending admin notification email to ${recipientEmail}...`)
     await transporter.sendMail(adminMailOptions)

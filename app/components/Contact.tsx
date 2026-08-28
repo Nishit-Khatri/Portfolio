@@ -80,7 +80,34 @@ export default function Contact() {
         body: JSON.stringify(formData),
       })
 
-      const data = await response.json()
+      let data: any = null
+      const contentType = response.headers.get("content-type")
+
+      if (contentType && contentType.includes("application/json")) {
+        try {
+          data = await response.json()
+        } catch (jsonErr) {
+          console.error("Failed to parse JSON response:", jsonErr)
+        }
+      }
+
+      // Safely handle non-JSON or HTML responses (e.g. 404 HTML pages from static hosts)
+      if (!data) {
+        const textResponseBody = await response.text().catch(() => "")
+        console.error("Non-JSON response received from server:", response.status, textResponseBody)
+
+        if (response.status === 404) {
+          setServerError(
+            "Contact API route was not found (404). Please ensure the backend is deployed with Node.js / Vercel serverless support."
+          )
+        } else {
+          setServerError(
+            `Server returned an invalid response (${response.status}). Please try again later or email directly.`
+          )
+        }
+        setIsSubmitting(false)
+        return
+      }
 
       if (!response.ok || !data.success) {
         if (data.validationErrors) {
@@ -106,7 +133,11 @@ export default function Contact() {
       }, 5000)
     } catch (err: any) {
       console.error("Error submitting contact form:", err)
-      setServerError("Network error. Please check your internet connection and try again.")
+      const errorMessage =
+        err?.message && !err.message.includes("Unexpected token")
+          ? err.message
+          : "Unable to connect to the server. Please check your network or try again later."
+      setServerError(errorMessage)
       setIsSubmitting(false)
     }
   }
