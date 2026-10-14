@@ -110,7 +110,7 @@ export default function About() {
 
                   {/* Photo */}
                   <Image
-                    src="/media/Nishit image.png?height=400&width=320"
+                    src="/media/Nishit image.jpeg?height=400&width=320"
                     alt="Nishit Khatri - Full Stack Developer"
                     fill
                     className="object-contain group-hover:scale-110 transition-transform duration-500"
