@@ -1,0 +1,305 @@
+@import "tailwindcss";
+
+/* ─── Design Tokens ──────────────────────────────────────────── */
+:root {
+  /* Default Light Mode */
+  --bg-color: #FAFAF8;
+  --card-bg: #FFFFFF;
+  --text-main: #111113;
+  --text-muted: #66666E;
+  --border-color: rgba(0, 0, 0, 0.08);
+  --border-hover: rgba(0, 0, 0, 0.18);
+  --accent-color: #2F4BE0;
+  --accent-soft: rgba(47, 75, 224, 0.08);
+  --card-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.06);
+
+  /* Fonts */
+  --font-heading: var(--font-plus-jakarta-sans), system-ui, sans-serif;
+  --font-body: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), monospace;
+}
+
+:root[data-theme="dark"],
+.dark {
+  /* Dark Mode */
+  --bg-color: #0C0C0E;
+  --card-bg: #141417;
+  --text-main: #F4F4F2;
+  --text-muted: #8C8C94;
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 255, 255, 0.18);
+  --accent-color: #6C8BFF;
+  --accent-soft: rgba(108, 139, 255, 0.12);
+  --card-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+}
+
+/* ─── View Transitions for Theme Circular Reveal ─────────────── */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* Temporary short transition during theme switch (never permanent) */
+html.theme-settle,
+html.theme-settle *,
+html.theme-settle *::before,
+html.theme-settle *::after {
+  transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease !important;
+}
+
+/* ─── Base Styles ────────────────────────────────────────────── */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-body);
+  width: 100%;
+}
+
+/* Preloader scroll lock — added/removed by JS */
+html.is-loading,
+html.preloader-lock {
+  overflow: hidden;
+  touch-action: none;
+}
+
+/* Pure-CSS fallback: force-hide preloader after 6 s even if JS fails */
+@keyframes preloaderFallback {
+  to {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+.preloader,
+[data-preloader] {
+  animation: preloaderFallback 0.5s ease forwards 6s;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100svh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Shared edge-to-edge layout padding with safe-area support */
+.page-x {
+  width: 100%;
+  padding-left: max(clamp(16px, 4vw, 72px), env(safe-area-inset-left, 0px));
+  padding-right: max(clamp(16px, 4vw, 72px), env(safe-area-inset-right, 0px));
+}
+
+/* Wrapper to prevent horizontal overflow without breaking sticky */
+.overflow-x-clip-wrapper {
+  overflow-x: clip;
+  width: 100%;
+  position: relative;
+}
+
+@supports not (overflow: clip) {
+  .overflow-x-clip-wrapper {
+    overflow-x: hidden;
+  }
+}
+
+/* Typography Utility Classes */
+.font-heading {
+  font-family: var(--font-heading);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Fluid Type Clamps - scaled for ultra-wide displays up to 2560px */
+.text-fluid-hero {
+  font-size: clamp(2.25rem, 5.5vw, 6.25rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.text-fluid-h2 {
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.text-fluid-h3 {
+  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  line-height: 1.25;
+}
+
+/* Touch Targets: minimum 44px */
+button,
+a.interactive-btn {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Form Inputs: minimum 16px font-size to prevent mobile zoom */
+input,
+textarea,
+select {
+  font-size: 16px !important;
+}
+
+/* Marquee infinite scroll */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 35s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+@keyframes breathing {
+
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: scale(0.995);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ─── Low-Power & Reduced-Data Optimization ──────────────────────── */
+/* html.low-power *,
+@media (prefers-reduced-data: reduce),
+(max-width: 640px) {
+  * {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+} */
+
+/* ── Low-Power & Reduced-Data Optimization ── */
+html.low-power * {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+@media (prefers-reduced-data: reduce) {
+  * {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+
+@media (max-width: 640px) {
+  * {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+
+/* Safe Area Inset Helpers */
+.safe-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.safe-left {
+  padding-left: env(safe-area-inset-left, 0px);
+}
+
+.safe-right {
+  padding-right: env(safe-area-inset-right, 0px);
+}
+
+/* ─── Journey Timeline ───────────────────────────────────────── */
+
+/* Glow colour token — matches accent per theme */
+:root {
+  --timeline-glow: rgba(47, 75, 224, 0.55);
+}
+
+:root[data-theme="dark"],
+.dark {
+  --timeline-glow: rgba(108, 139, 255, 0.55);
+}
+
+/* Track + fill lines are 2px wide (w-0.5 = 2px in Tailwind) */
+
+/* Fill line: persistent glow shadow on the accent line */
+.timeline-fill {
+  box-shadow:
+    0 0 8px 2px var(--timeline-glow),
+    0 0 20px 4px var(--timeline-glow);
+}
+
+/* Dot base: CSS-only transition so GSAP classList toggling is smooth */
+.journey-dot {
+  transition:
+    transform 250ms ease,
+    box-shadow 250ms ease,
+    background-color 250ms ease,
+    border-color 250ms ease,
+    color 250ms ease;
+  will-change: transform;
+}
+
+/* Active dot: accent fill + glow ring + scale */
+.journey-dot.is-active {
+  transform: scale(1.15) !important;
+  box-shadow: 0 0 0 4px var(--accent-soft), 0 0 16px 4px var(--timeline-glow) !important;
+  background-color: var(--accent-color) !important;
+  border-color: var(--accent-color) !important;
+  color: #ffffff !important;
+}
+
+/* Mobile cards: fade-up via class toggle */
+@media (max-width: 767px) {
+  .journey-card.is-entering {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+
+  .journey-card.is-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+}
+
+/* Desktop cards: GSAP handles opacity/x; no CSS override needed */
+@media (min-width: 768px) {
+  .journey-card {
+    /* initial opacity 0 — GSAP fromTo sets it back to 1 on scroll-in */
+    opacity: 0;
+  }
+}
