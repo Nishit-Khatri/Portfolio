@@ -277,7 +277,7 @@ export default function Hero() {
             </Magnetic>
             <Magnetic strength={0.3}>
               <a
-                href="./media/Nishit-Khatri-Resume.pdf"
+                href="./media/Nishit Khatri Resume.pdf"
                 download="Nishit-Khatri-Resume.pdf"
                 onClick={() => {
                   window.open(profile.resumeLink, "_blank")
